@@ -73,7 +73,7 @@ struct FilterSequence<std::index_sequence<Kept...>,
     using Type = FilterSequence<
         std::conditional_t<Keep, std::index_sequence<Kept..., Cur>,
                            std::index_sequence<Kept...>>,
-        std::index_sequence<Rest...>, std::index_sequence<Ignore...>>;
+        std::index_sequence<Rest...>, std::index_sequence<Ignore...>>::Type;
 };
 
 template <size_t... Kept, size_t... Ignore>

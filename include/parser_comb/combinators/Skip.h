@@ -65,7 +65,7 @@ struct SkipWhile {
 
 template <typename P, typename Fn>
     requires(ParseRules<P> &&
-             Predicate<detail::PureT<Fn>, typename P::ValueType>)
+             Predicate<detail::PureT<Fn>, detail::ValueOfParser<P>>)
 constexpr auto skip_while0(P&& p, Fn&& fn) {
     return SkipWhile<detail::PureT<P>, detail::PureT<Fn>, true>{
         std::forward<P>(p), std::forward<Fn>(fn)};
@@ -73,7 +73,7 @@ constexpr auto skip_while0(P&& p, Fn&& fn) {
 
 template <typename P, typename Fn>
     requires(ParseRules<P> &&
-             Predicate<detail::PureT<Fn>, typename P::ValueType>)
+             Predicate<detail::PureT<Fn>, detail::ValueOfParser<P>>)
 constexpr auto skip_while1(P&& p, Fn&& fn) {
     return SkipWhile<detail::PureT<P>, detail::PureT<Fn>, false>{
         std::forward<P>(p), std::forward<Fn>(fn)};

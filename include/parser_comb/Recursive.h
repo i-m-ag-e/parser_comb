@@ -44,8 +44,14 @@ struct RecursiveP {
         };
     }
 
+    constexpr auto is_set() const -> bool {
+        return inner_parser && *inner_parser;
+    }
+
     constexpr auto parse(std::string_view input) const -> ParseResult<T> {
-        return (*inner_parser)(input);
+        if (is_set())
+            return (*inner_parser)(input);
+        return std::nullopt;
     }
 
     constexpr auto ref() const -> RecursiveRef<T> {
