@@ -18,9 +18,9 @@ target_include_directories(parser_comb
         $<INSTALL_INTERFACE:include>
 )
 
-option(BUILD_TESTS "Build tests" ON)
+option(PARSERCOMB_BUILD_TESTS "Build tests" ON)
 
-if (BUILD_TESTS)
+if (PARSERCOMB_BUILD_TESTS)
     enable_testing()
     add_subdirectory(tests)
 endif ()

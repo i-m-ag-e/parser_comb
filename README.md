@@ -96,7 +96,7 @@ ctest --output-on-failure
 To build without tests, you can disable them during the CMake configuration step:
 
 ```bash
-cmake -DBUILD_TESTS=OFF ..
+cmake -DPARSERCOMB_BUILD_TESTS=OFF ..
 ```
 
 To include this library in your own CMake project, you can use `FetchContent`:
