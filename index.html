@@ -179,7 +179,7 @@ Build and Test Instructions</h1>
 <div class="line">cmake --build .</div>
 <div class="line">ctest --output-on-failure</div>
 </div><!-- fragment --><p>To build without tests, you can disable them during the CMake configuration step:</p>
-<div class="fragment"><div class="line">cmake -DBUILD_TESTS=OFF ..</div>
+<div class="fragment"><div class="line">cmake -DPARSERCOMB_BUILD_TESTS=OFF ..</div>
 </div><!-- fragment --><p>To include this library in your own CMake project, you can use <code>FetchContent</code>:</p>
 <div class="fragment"><div class="line">include(FetchContent)</div>
 <div class="line">FetchContent_Declare(</div>
