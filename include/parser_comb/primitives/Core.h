@@ -5,6 +5,19 @@
 
 namespace comb {
 
+/**
+ * @brief Parser that always succeeds and returns the provided value without
+ * consuming any input.
+ * @ingroup primitives
+ *
+ * Usage:
+ * ```cpp
+ * comb::pure(42).parse("abc"); // (42, "abc")
+ * comb::pure(std::string("hello")).parse(""); // ("hello", "")
+ * ```
+ *
+ * @tparam T
+ */
 template <typename T>
 struct Pure {
     using ValueType = T;
@@ -23,11 +36,25 @@ struct Pure {
 template <typename T>
 explicit Pure(T&&) -> Pure<std::remove_cvref_t<T>>;
 
+/**
+ * @brief Constructs a `Pure<T>(value)`
+ * @ingroup primitives
+ *
+ * @tparam T
+ * @param value
+ * @return Pure<T>
+ */
 template <typename T>
 constexpr auto pure(T&& value) -> Pure<T> {
     return Pure{std::forward<T>(value)};
 }
 
+/**
+ * @brief Parser that always fails
+ * @ingroup primitives
+ *
+ * @tparam T
+ */
 template <typename T>
 struct Empty {
     using ValueType = T;
@@ -37,6 +64,13 @@ struct Empty {
     }
 };
 
+/**
+ * @brief Constructs a `Empty<T>`
+ * @ingroup primitives
+ *
+ * @tparam T
+ * @return Empty<T>
+ */
 template <typename T>
 constexpr auto empty() -> Empty<T> {
     return {};

@@ -16,6 +16,26 @@ concept IsSameAll =
 
 }
 
+// clang-format off
+/**
+ * @brief Parser that tries all parsers in `Ps...`, until one succeeds
+ * @ingroup combinators
+ *
+ * All parsers in `Ps...` must produce the same type of value. (i.e.
+ * `Ps::ValueType` must same for all `Ps...`)
+ *
+ * If none of the parsers succeed, a failure is returned.
+ *
+ * Usage:
+ * ```cpp
+ * auto p = comb::alt(comb::charP('a'), comb::charP('x'), comb::satisfy(comb::isdigit));
+ * auto r1 = p.parse("abcd"); // ('a', "bcd")
+ * auto r2 = p.parse("xyz");  // ('x', "yz")
+ * auto r3 = p.parse("1234"); // ('1', "234")
+ * ```
+ * @tparam Ps the parsers to try
+ */
+// clang-format on
 template <ParseRule... Ps>
     requires(sizeof...(Ps) > 1 && detail::IsSameAll<typename Ps::ValueType...>)
 struct Alt {
@@ -61,6 +81,12 @@ explicit Alt(std::tuple<Ps...> const&) -> Alt<Ps...>;
 template <ParseRule... Ps>
 explicit Alt(std::tuple<Ps...>&&) -> Alt<Ps...>;
 
+/**
+ * @brief Constructs an `Alt<Ps...>` from the given parsers
+ * @ingroup combinators
+ *
+ * @tparam Ps
+ */
 template <typename... Ps>
     requires(ParseRule<std::remove_cvref_t<Ps>> && ...)
 constexpr auto alt(Ps&&... ps) -> Alt<std::remove_cvref_t<Ps>...> {

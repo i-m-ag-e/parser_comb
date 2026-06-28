@@ -1,3 +1,27 @@
+/**
+ * @file CType.h
+ * @brief constexpr wrappers around the C `<cctype>` functions.
+ *
+ * Provides `constexpr` function objects wrapping the standard `<cctype>`
+ * character predicates and conversion functions. These wrappers are
+ * intended for use with parser combinators, allowing functions such as
+ * `comb::isdigit` or `comb::isspace` to be passed directly as predicates.
+ *
+ * The reason for the existence of this header is that if we try to use
+ * ```cpp
+ * comb::satisfy(std::isdigit)
+ * ```
+ * the compiler is unable to resolve `Fn` in `comb::satisfy`, since functions
+ * like `std::isdigit` are overloads and we need to cast them to specific
+ * functions, in order to get them to work. For example,
+ * ```cpp
+ * comb::satisfy(static_cast<int(*)(int)>(std::isdigit))
+ * ```
+ *
+ * Since the functions listed in this header have specific signatures, they can
+ * be used without casting.
+ */
+
 #ifndef PARSER_COMB_CTYPE_H
 #define PARSER_COMB_CTYPE_H
 

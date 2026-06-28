@@ -28,6 +28,20 @@ concept TupleLike = requires(T t) {
 
 }  // namespace detail
 
+// clang-format off
+/**
+ * @brief Functor that extracts elements from a tuple at specified indices.
+ *
+ * Usage:
+ * ```cpp
+ * auto extractor = comb::ExtractIndices<0, 2>{};
+ * auto p = comb::fmap(extractor, comb::seq(comb::any_char, comb::charP(':'), comb::any_char, comb::charP(';')));
+ * p.parse("a:b;"); // (('a', 'b'), "")
+ * ```
+ *
+ * @tparam Is the indices of the elements to extract from the tuple.
+ */
+// clang-format on
 template <size_t... Is>
 struct ExtractIndices {
     template <detail::TupleLike T, typename U = std::remove_cvref_t<T>>
@@ -50,6 +64,12 @@ concept IndexSequence = IsIndexSequenceImpl<T>::value;
 
 }  // namespace detail
 
+/**
+ * @brief Functor that extracts elements from a tuple at specified indices,
+ * given as an index sequence.
+ *
+ * @tparam IndexSeq the index sequence containing the indices
+ */
 template <detail::IndexSequence IndexSeq>
 struct ExtractIndicesFromSeq;
 
@@ -73,7 +93,7 @@ struct FilterSequence<std::index_sequence<Kept...>,
     using Type = FilterSequence<
         std::conditional_t<Keep, std::index_sequence<Kept..., Cur>,
                            std::index_sequence<Kept...>>,
-        std::index_sequence<Rest...>, std::index_sequence<Ignore...>>;
+        std::index_sequence<Rest...>, std::index_sequence<Ignore...>>::Type;
 };
 
 template <size_t... Kept, size_t... Ignore>
@@ -89,6 +109,21 @@ using ComplementSequence =
 
 }  // namespace detail
 
+// clang-format off
+/**
+ * @brief Functor that extracts elements from a tuple, ignoring specified
+ * indices.
+ *
+ * Usage:
+ * ```cpp
+ * auto extractor = comb::IgnoreIndices<0, 2>{};
+ * auto p = comb::fmap(extractor, comb::seq(comb::any_char, comb::charP(':'), comb::any_char, comb::charP(';')));
+ * p.parse("a:b;"); // ((':', ';'), "")
+ * ```
+ *
+ * @tparam Is indices to ignore
+ */
+// clang-format on
 template <size_t... Is>
 struct IgnoreIndices {
     template <detail::TupleLike T>
@@ -100,12 +135,34 @@ struct IgnoreIndices {
     }
 };
 
+/**
+ * @brief Functor that extracts elements from a tuple, ignoring indices
+ * specified in an index sequence.
+ *
+ * @tparam Seq the index sequence containing the indices to ignore
+ */
 template <detail::IndexSequence Seq>
 struct IgnoreIndicesFromSeq;
 
 template <size_t... Is>
 struct IgnoreIndicesFromSeq<std::index_sequence<Is...>> {};
 
+// clang-format off
+/**
+ * @brief Functor that extracts two elements as a pair from a tuple at specified
+ * indices
+ *
+ * Usage:
+ * ```cpp
+ * auto extractor = comb::ExtractPair<0, 2>{};
+ * auto p = comb::fmap(extractor, comb::seq(comb::any_char, comb::charP(':'), comb::any_char, comb::charP(';')));
+ * p.parse("a:b;"); // (std::pair('a', 'b'), "")
+ * ```
+ *
+ * @tparam N1 Index of the first element to extract
+ * @tparam N2 Index of the second element to extract
+ */
+// clang-format on
 template <size_t N1, size_t N2>
 struct ExtractPair {
     template <detail::TupleLike T>
@@ -115,6 +172,20 @@ struct ExtractPair {
     }
 };
 
+// clang-format off
+/**
+ * @brief Functor that extracts the N-th element from a tuple.
+ *
+ * Usage:
+ * ```cpp
+ * auto extractor = comb::ExtractNth<2>{};
+ * auto p = comb::fmap(extractor, comb::seq(comb::any_char, comb::charP(':'), comb::any_char, comb::charP(';')));
+ * p.parse("a:b;"); // ('b', "")
+ * ```
+ *
+ * @tparam N index of the element to extract
+ */
+// clang-format off
 template <size_t N>
 struct ExtractNth {
     template <detail::TupleLike T>
@@ -139,6 +210,26 @@ concept ConstructibleFromTupleLike =
 
 }  // namespace detail
 
+/**
+ * @brief Functor that constructs an object of type `T` from a tuple of arguments.
+ * 
+ * Usage:
+ * ```cpp
+ * struct MyStruct {
+ *    int a;
+ *    char b;
+ *    std::string_view c;
+ * };
+ *
+ * auto constructor = comb::ConstructFromSequence<MyStruct>{};
+ * auto number = comb::fmap([](auto s){ return std::stoi(s); }, comb::take_char_while1(comb::isdigit));
+ * auto var = comb::take_char_while1(comb::isalpha);
+ * auto p = comb::fmap(constructor, comb::seq(number, comb::charP(':'), var));
+ * p.parse("123:abc"); // (MyStruct{123, ':', "abc"}, "")
+ * ```
+ * 
+ * @tparam T 
+ */
 template <typename T>
 struct ConstructFromSequence {
     template <detail::TupleLike Tup>
