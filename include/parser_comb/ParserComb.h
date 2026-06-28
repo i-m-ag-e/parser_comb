@@ -1,3 +1,12 @@
+/**
+ * @defgroup primitives Core Primitives
+ * @brief Core primitives for parsing, including character and string parsers.
+ *
+ * @defgroup combinators Combinators
+ * @brief Combinators for combining parsers (e.g., sequencing, alternation,
+ * mapping).
+ */
+
 #ifndef PARSER_COMB_H
 #define PARSER_COMB_H
 

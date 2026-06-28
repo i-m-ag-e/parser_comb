@@ -4,6 +4,27 @@
 #include "parser_comb/ParseRule.h"
 
 namespace comb {
+
+// clang-format off
+/**
+ * @brief Parser that always returns a constant on success
+ * @ingroup combinators
+ *
+ * The parser executes the internal parser `P`, if it succeeds, returns the
+ * constant passed during construction.
+ *
+ * Usage:
+ * ```cpp
+ * auto p = comb::map_to_value(comb::stringP("true"), true);
+ * auto r1 = p.parse("true;"); // (true, ";");
+ * auto r2 = p.parse("false"); // std::nullopt
+ * ```
+ *
+ * @tparam P  the internal parser
+ * @tparam T  the type of constant returned on success
+ */
+
+// clang-format on
 template <ParseRule P, typename T>
 struct MapToValue {
     using ValueType = T;
@@ -25,6 +46,13 @@ struct MapToValue {
     T value;
 };
 
+/**
+ * @brief helper to construct `MapToValue` from parser and constant
+ * @ingroup combinators
+ *
+ * @tparam P
+ * @tparam T
+ */
 template <typename P, typename T>
     requires(ParseRules<P>)
 constexpr auto map_to_value(P&& p, T&& val) {

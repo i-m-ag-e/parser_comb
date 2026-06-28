@@ -8,6 +8,25 @@
 
 namespace comb {
 
+// clang-format off
+/**
+ * @brief Parser that transforms the result of a parser into another value
+ * @ingroup combinators
+ * 
+ * Usage:
+ * ```cpp
+ * auto p = comb::fmap(
+ *     [](std::string_view s){ return std::stoi(s); },
+ *     std::take_char_while1(comb::isdigit)
+ * );
+ * auto r1 = p.parse("123;"); // (123, ";")
+ * auto r2 = p.parse("1a2b"); // (1, "a2b")
+ * auto r3 = p.parse("xyz"); // std::nullopt
+ * ```
+ * 
+ * @tparam Fn the transformer function
+ * @tparam P  the parser that produces the initial value
+ */
 template <typename Fn, ParseRule P>
 struct FMap {
     using ValueType = std::invoke_result_t<Fn, typename P::ValueType>;
@@ -34,6 +53,13 @@ struct FMap {
 template <typename Fn, typename P>
 explicit FMap(Fn&&, P&&) -> FMap<detail::PureT<Fn>, detail::PureT<P>>;
 
+/**
+ * @brief helper to construct `FMap<Fn, P>` 
+ * @ingroup combinators
+ * 
+ * @tparam Fn 
+ * @tparam P 
+ */
 template <typename Fn, typename P>
     requires(ParseRule<std::remove_cvref_t<P>>)
 constexpr auto fmap(Fn&& fn, P&& p)  // -> FMap<PureFn, PureP>

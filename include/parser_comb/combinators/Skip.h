@@ -7,6 +7,22 @@
 
 namespace comb {
 
+/**
+ * @brief Combinator that executes a parser as long as it succeeds, discarding
+ * its result
+ * @ingroup combinators
+ *
+ * This parser never fails.
+ *
+ * Usage:
+ * ```cpp
+ * auto p = comb::skip(comb::take_while0(comb::satisfy(comb::isalpha)));
+ * auto r1 = p.parse("abc123"); // (std::monostate{}, "123")
+ * auto r2 = p.parse("123abc"); // (std::monostate{}, "123abc")
+ * ```
+ *
+ * @tparam P
+ */
 template <ParseRule P>
 struct Skip {
     using ValueType = std::monostate;
@@ -36,6 +52,18 @@ constexpr auto skip(P&& p) -> Skip<detail::PureT<P>> {
     return Skip<detail::PureT<P>>{std::forward<P>(p)};
 }
 
+/**
+ * @brief Combinator that executes a parser as long as it succeeds and the
+ * predicate returns true, discarding all results
+ * @ingroup combinators
+ *
+ * Usage given with construction functions `comb::skip_while0` and
+ * `comb::skip_while1`.
+ *
+ * @tparam P  Parser to execute
+ * @tparam Fn  predicate that checks the parsed value
+ * @tparam AllowZero flag to allow or disallow zero executions of a parser
+ */
 template <ParseRule P, Predicate<typename P::ValueType> Fn, bool AllowZero>
 struct SkipWhile {
     using ValueType = std::monostate;
@@ -63,6 +91,23 @@ struct SkipWhile {
     Fn pred;
 };
 
+// clang-format off
+/**
+ * @brief Constructs a `SkipWhile<P, Fn, true>` from the given parsers
+ * @ingroup combinators
+ * 
+ * Usage:
+ * ```cpp
+ * auto p = comb::skip_while0(comb::satisfy(comb::isalpha), [](char c){ return c <= 'e'; });
+ * auto r1 = p.parse("abcde123"); // (std::monostate{}, "123")
+ * auto r2 = p.parse("fghij"); // (std::monostate{}, "fghij")
+ * auto r3 = p.parse("123abc"); // (std::monostate{}, "123abc")
+ * ```
+ * 
+ * @tparam P 
+ * @tparam Fn 
+ */
+// clang-format on
 template <typename P, typename Fn>
     requires(ParseRules<P> &&
              Predicate<detail::PureT<Fn>, detail::ValueOfParser<P>>)
@@ -71,6 +116,23 @@ constexpr auto skip_while0(P&& p, Fn&& fn) {
         std::forward<P>(p), std::forward<Fn>(fn)};
 }
 
+// clang-format off
+/**
+ * @brief Constructs a `SkipWhile<P, Fn, false>` from the given parsers
+ * @ingroup combinators
+ * 
+ * Usage:
+ * ```cpp
+ * auto p = comb::skip_while1(comb::satisfy(comb::isalpha), [](char c){ return c <= 'e'; });
+ * auto r1 = p.parse("abcde123"); // (std::monostate{}, "123")
+ * auto r2 = p.parse("fghij"); // std::nullopt
+ * auto r3 = p.parse("123abc"); // std::nullopt
+ * ```
+ * 
+ * @tparam P 
+ * @tparam Fn 
+ */
+// clang-format on
 template <typename P, typename Fn>
     requires(ParseRules<P> &&
              Predicate<detail::PureT<Fn>, detail::ValueOfParser<P>>)
