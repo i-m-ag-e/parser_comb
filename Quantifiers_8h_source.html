@@ -133,7 +133,7 @@ $(document).ready(function(){initNavTree('Quantifiers_8h_source.html',''); initR
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                <a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">input</a> = <a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">res</a>-&gt;second;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            } <span class="keywordflow">while</span> ((<a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">res</a> = parser.parse(<a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">input</a>)));</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        }</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">return</span> std::pair{<a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">parsed_values</a>, <a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">input</a>};</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">return</span> std::pair{std::exchange(<a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">parsed_values</a>, {}), <a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">input</a>};</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
 </div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
@@ -188,7 +188,7 @@ $(document).ready(function(){initNavTree('Quantifiers_8h_source.html',''); initR
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>                <a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">input</a> = <a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">res</a>-&gt;second;</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            } <span class="keywordflow">while</span> ((<a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">res</a> = <a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">comb_parser</a>.parse(<a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">input</a>)));</div>
 <div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        }</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <span class="keywordflow">return</span> std::pair{<a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">parsed_values</a>, <a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">input</a>};</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <span class="keywordflow">return</span> std::pair{std::exchange(<a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">parsed_values</a>, {}), <a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">input</a>};</div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    }</div>
 </div>
 <div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
@@ -245,7 +245,7 @@ $(document).ready(function(){initNavTree('Quantifiers_8h_source.html',''); initR
 <div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>            <span class="keywordflow">return</span> std::nullopt;</div>
 <div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        }</div>
 <div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>        <span class="keywordflow">return</span> std::pair{<a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">parsed_values</a>, <a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">input</a>};</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>        <span class="keywordflow">return</span> std::pair{std::exchange(<a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">parsed_values</a>, {}), <a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">input</a>};</div>
 <div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    }</div>
 </div>
 <div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
