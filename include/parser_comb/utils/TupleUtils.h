@@ -234,7 +234,7 @@ template <typename T>
 struct ConstructFromSequence {
     template <detail::TupleLike Tup>
         requires(detail::ConstructibleFromTupleLike<T, Tup>)
-    constexpr auto operator()(Tup&& tup) {
+    constexpr auto operator()(Tup&& tup) const {
         return std::apply(
             []<typename... Args>(Args&&... args) {
                 return T(std::forward<Args>(args)...);
