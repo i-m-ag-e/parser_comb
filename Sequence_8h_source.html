@@ -199,7 +199,7 @@ $(document).ready(function(){initNavTree('Sequence_8h_source.html',''); initResi
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keywordflow">if</span> (!<a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">res_r</a>)</div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            <span class="keywordflow">return</span> std::nullopt;</div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keywordflow">return</span> std::pair{<a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">res_l</a>-&gt;first, <a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">res_r</a>-&gt;second};</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keywordflow">return</span> std::pair{std::move(<a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">res_l</a>-&gt;first), <a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">res_r</a>-&gt;second};</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    }</div>
 </div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
@@ -245,7 +245,7 @@ $(document).ready(function(){initNavTree('Sequence_8h_source.html',''); initResi
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        <span class="keywordflow">if</span> (!<a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">res_r</a>)</div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>            <span class="keywordflow">return</span> std::nullopt;</div>
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        <span class="keywordflow">return</span> std::pair{<a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">res_r</a>-&gt;first, <a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">res_r</a>-&gt;second};</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        <span class="keywordflow">return</span> std::pair{std::move(<a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">res_r</a>-&gt;first), <a class="code hl_typedef" href="namespacecomb.html#a3b43de66de880a1c287590f6b61aff2a">res_r</a>-&gt;second};</div>
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    }</div>
 </div>
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
