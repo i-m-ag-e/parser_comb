@@ -44,7 +44,7 @@ struct Many {
                 input = res->second;
             } while ((res = parser.parse(input)));
         }
-        return std::pair{parsed_values, input};
+        return std::pair{std::exchange(parsed_values, {}), input};
     }
 
    private:
@@ -133,7 +133,7 @@ struct DelimitedSequence {
                 input = res->second;
             } while ((res = comb_parser.parse(input)));
         }
-        return std::pair{parsed_values, input};
+        return std::pair{std::exchange(parsed_values, {}), input};
     }
 
    private:
@@ -228,7 +228,7 @@ struct TakeWhile {
             return std::nullopt;
         }
 
-        return std::pair{parsed_values, input};
+        return std::pair{std::exchange(parsed_values, {}), input};
     }
 
    private:

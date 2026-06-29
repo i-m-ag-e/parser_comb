@@ -330,7 +330,7 @@ struct Chain {
             input = next_res->second;
         }
 
-        return std::pair{curr, input};
+        return std::pair{std::move(curr), input};
     }
 
    private:
