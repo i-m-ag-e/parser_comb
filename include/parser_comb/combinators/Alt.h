@@ -51,8 +51,7 @@ struct Alt {
     constexpr auto parse(std::string_view input) const
         -> ParseResult<ValueType> {
         return std::apply(
-            [input](auto&&... ps) { return parse_impl(input, ps...); },
-            parsers);
+            [input](auto&... ps) { return parse_impl(input, ps...); }, parsers);
     }
 
    private:
