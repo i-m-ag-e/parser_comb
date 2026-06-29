@@ -126,7 +126,7 @@ struct Left {
         if (!res_r)
             return std::nullopt;
 
-        return std::pair{res_l->first, res_r->second};
+        return std::pair{std::move(res_l->first), res_r->second};
     }
 
    private:
@@ -179,7 +179,7 @@ struct Right {
         if (!res_r)
             return std::nullopt;
 
-        return std::pair{res_r->first, res_r->second};
+        return std::pair{std::move(res_r->first), res_r->second};
     }
 
    private:
